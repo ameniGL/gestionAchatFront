@@ -1,0 +1,14 @@
+.card.ecommerce-product-widgets {
+    min-height: 350px; /* Ajustez la hauteur minimale selon vos besoins */
+}
+.clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #007bff; /* Couleur du lien */
+  }
+  
+  .clickable:hover {
+    text-decoration: none;
+    color: #0056b3; /* Couleur du lien au survol */
+  }
+  

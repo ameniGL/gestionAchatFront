@@ -1,0 +1,71 @@
+.fixed-image {
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+    width: 100%;
+}
+
+.card {
+    height: 100%; /* Ensure the card takes up the full height */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex: 1; /* Allows the card body to take up remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title, .card-text {
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+.btn-primary {
+    margin-top: auto; /* Pushes the button to the bottom of the card body */
+}
+.fixed-image {
+    height: 200px; /* Hauteur fixe, vous pouvez ajuster selon vos besoins */
+    object-fit: cover; /* Pour s'assurer que l'image couvre toute la zone sans déformation */
+}
+
+/* home.component.css */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  .pagination span {
+    margin: 0 10px;
+  }
+  
+
+/* home.component.css */
+
+.rating i.fa-star {
+    color: #ffd700; /* Couleur des étoiles pleines */
+  }
+  
+  .rating i.fa-star.filled {
+    color: #ffd700; /* Couleur des étoiles pleines */
+  }
+  
+  .rating i.fa-star:not(.filled) {
+    color: #e4e5e9; /* Couleur des étoiles vides */
+  }
+  

@@ -1,0 +1,155 @@
+<!-- Include app-head component -->
+<app-head></app-head>
+
+<body>
+    <section class="section pb-0 mt-4">
+        <div class="container-fluid">
+            <div class="position-relative rounded-3"
+                style="background-image: url('../assets/images/ecommerce/banner.jpg');background-size: cover;background-position: center;">
+                <div class="row justify-content-end">
+                    <div class="col-xxl-4">
+                        <div class="text-end py-4 px-5 mx-xxl-5">
+                            <h1 class="text-white display-5 lh-base text-capitalize ff-secondary mb-3 fst-italic">
+                                navigate from here with best prices, welcome</h1>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div>
+        </div><!--end container-->
+    </section>
+
+    <div class="position-relative section">
+        <div class="container-fluid">
+            <div class="ecommerce-product gap-4">
+                <div class="sidebar flex-shrink-0">
+                    <!-- a gauche -->
+                    <div class="card overflow-hidden">
+                        <div class="card-header">
+                            <div class="d-flex mb-3">
+                                <div class="flex-grow-1">
+                                    <h5 class="fs-16">Filters</h5>
+                                </div>
+                            </div>
+                            <div class="search-box">
+                                <input type="text" class="form-control" id="searchProductList" autocomplete="off"
+                                    placeholder="Search Products..." [(ngModel)]="searchKeywords">
+                                <i class="ri-search-line search-icon"></i>
+                            </div>
+                        </div>
+                        <div class="accordion accordion-flush filter-accordion">
+                       <!-- Categories Filter -->
+<div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingCategories">
+      <button class="accordion-button bg-transparent shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseCategories" aria-expanded="false" aria-controls="flush-collapseCategories">
+        <span class="text-muted text-uppercase fs-12 fw-medium">Categories</span>
+      </button>
+    </h2>
+    <div id="flush-collapseCategories" class="accordion-collapse collapse" aria-labelledby="flush-headingCategories">
+      <div class="accordion-body text-body pt-1">
+        <div class="d-flex flex-column gap-2 filter-check">
+          <div *ngFor="let category of uniqueCategories">
+            <input class="form-check-input" type="checkbox" [id]="category" [value]="category" (change)="applyCategoryFilter($event)">
+            <label class="form-check-label" [for]="category">
+              {{ category }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Brands Filter -->
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingBrands">
+      <button class="accordion-button bg-transparent shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseBrands" aria-expanded="false" aria-controls="flush-collapseBrands">
+        <span class="text-muted text-uppercase fs-12 fw-medium">Brands</span>
+      </button>
+    </h2>
+    <div id="flush-collapseBrands" class="accordion-collapse collapse" aria-labelledby="flush-headingBrands">
+      <div class="accordion-body text-body pt-1">
+        <div class="d-flex flex-column gap-2 filter-check">
+          <div *ngFor="let brand of uniquebrand">
+            <input class="form-check-input" type="checkbox" [id]="brand" [value]="brand" (change)="applyBrandFilter($event)">
+            <label class="form-check-label" [for]="brand">
+              {{ brand }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+                              <div class="card-body border-bottom">
+                                <div>
+                                  <p class="text-muted text-uppercase fs-12 fw-medium mb-3">Sort by Price</p>
+                                  <select class="form-select" (change)="sortProducts($event.target.value)">
+                                    <option value="low-to-high">Price: Low to High</option>
+                                    <option value="high-to-low">Price: High to Low</option>
+                                  </select>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-grow-1" id="col-3-layout">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <!-- Additional controls if needed -->
+                    </div>
+                    <div class="row" id="product-grid">
+                        <div class="col-xxl-3 col-lg-4 col-md-6" *ngFor="let product of pagedProducts">
+                          <div class="card ecommerce-product-widgets border-0 rounded-0 shadow-none overflow-hidden">
+                            <div class="bg-light bg-opacity-50 rounded py-4 position-relative">
+                              <img src="{{ product.image }}" alt=""
+                                   style="max-height: 200px; max-width: 100%;" class="mx-auto d-block rounded-2">
+                            </div>
+                            <div class="pt-4">
+                              <h6 class="text-capitalize fs-15 lh-base mb-0">{{ product.title }}</h6>
+                              <div class="mt-2">
+                                <span class="float-end">
+                                  <i class="fas fa-star text-warning align-bottom"></i> {{ product.rating }}
+                                </span>
+                                <h5 class="text-secondary mb-0">{{ product.price }} <span class="text-muted fs-12"></span></h5>
+                                <h5 class="text-secondary mb-0">
+                                  Shipping:
+                                  <span class="text-muted fs-12">
+                                    {{ product.shipping }}
+                                  </span>
+                                </h5>
+                              </div>
+                              <div class="tn mt-3">
+                                <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-hover w-100 add-btn">
+                                  <i class="mdi mdi-cart me-1"></i> Check details
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    <!-- Pagination Controls with Bootstrap -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mt-4">
+                            <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+                                <a class="page-link" (click)="prevPage()" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item"
+                                [ngClass]="{'active': i + 1 === currentPage}">
+                                <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+                            </li>
+
+                            <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+                                <a class="page-link" (click)="nextPage()" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

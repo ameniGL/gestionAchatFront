@@ -1,0 +1,63 @@
+<div class="container">
+  <form (ngSubmit)="applyFilters()">
+    <fieldset>
+      <input id="oCategorieValeur" name="oCategorieValeur" type="hidden" [(ngModel)]="selectedCategoryValue" />
+      
+      <div class="input-group mb-3">
+        <div class="form-group">
+          <select id="categoryFilter" [(ngModel)]="selectedCategory" name="categoryFilter" class="form-control">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+  
+        <input id="oSaisie" name="oSaisie" type="text" class="form-control" [(ngModel)]="searchKeywords" aria-label="Saisie de mots clés" placeholder="Mot(s) clé(s)" required="required">
+  
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">Recherche</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  
+
+  <div class="row mt-4" id="results">
+    <div class="col-md-4 mb-4" *ngFor="let product of pagedProducts">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.brand }}</h5>
+          <p class="card-text">{{ product.title }}</p>
+          <p class="card-text"><strong>Price:</strong> {{ product.price }}$</p>
+          <div class="rating">
+            <p class="card-text"><strong>Rating:</strong></p>
+            <ng-container *ngFor="let star of getStars(product.rating)">
+              <i class="fa fa-star" [class.filled]="star === 1"></i>
+            </ng-container>
+          </div>
+          <a [href]="product.url" class="btn btn-primary" target="_blank">Voir détails</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls with Bootstrap -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-4">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="prevPage()" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item" [ngClass]="{'active': i + 1 === currentPage}">
+        <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="nextPage()" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
